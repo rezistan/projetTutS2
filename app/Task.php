@@ -9,6 +9,6 @@ class Task extends Model
 
     public function activities()
     {
-        return $this->hasMany('App\Models\Activity');
+        return $this->hasMany('App\Activity');
     }
 }

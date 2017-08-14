@@ -9,16 +9,16 @@ class Activity extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
 
     public function task()
     {
-        return $this->belongsTo('App\Models\Task');
+        return $this->belongsTo('App\Task');
     }
 
     public function room()
     {
-        return $this->belongsTo('App\Models\Room');
+        return $this->belongsTo('App\Room');
     }
 }

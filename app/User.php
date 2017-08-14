@@ -29,11 +29,16 @@ class User extends Authenticatable
 
     public function job()
     {
-        return $this->belongsTo('App\Models\Job');
+        return $this->belongsTo('App\Job');
     }
 
     public function activities()
     {
-        return $this->hasMany('App\Models\Activity');
+        return $this->hasMany('App\Activity');
+    }
+
+    public function unavailabilities()
+    {
+        return $this->hasMany('App\UserUnavailability');
     }
 }

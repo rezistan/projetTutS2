@@ -1,0 +1,23 @@
+[33mcommit 74a7cbdb745d837b428e999eff47abb1c0d82d42[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Sichialun <sichialun.kousonsavath@etu.univ-lyon1.fr>
+Date:   Fri Aug 18 19:44:12 2017 +0200
+
+    Creation de la page index.html, développement de la page EDT
+
+[33mcommit 7b5dc6155f292ee31bbc4974732d37b1468770b5[m
+Author: Thomas BOFFY <thomasboffy68@gmail.com>
+Date:   Mon Aug 14 16:43:43 2017 +0200
+
+    Modification des tables
+
+[33mcommit 7062157e315291d2d26f203b79fe76dfaac32b25[m
+Author: Thomas BOFFY <thomasboffy68@gmail.com>
+Date:   Sun May 14 15:35:23 2017 +0200
+
+    Création de la base de données. Pour récupérer les tables, pensez bien à d'abord créer votre base de données, puis la configurer dans le fichier .env !
+
+[33mcommit b14ac05ff7221d522c32e8c3dfa3a262a2a920e0[m
+Author: Thomas BOFFY <thomasboffy68@gmail.com>
+Date:   Tue Apr 25 13:36:43 2017 +0200
+
+    Initial commit

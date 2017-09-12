@@ -9,83 +9,74 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" type="image/x-icon" href="/edt.ico" >
 
     <!-- Styles -->
-    <link href="/css/semantic.css" rel="stylesheet">
+    <link href="/css/libs.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
-        <header>
-            <nav class="ui menu">
-                <div class="ui container">
-                    <div class="header item">
-                        <!-- Branding Image -->
-                        <a class="navbar-brand" href="{{ url('/') }}">
-                            {{ config('app.name', 'Laravel') }}
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="#">Actualités</a>
-                    </div>
-                    <div class="item">
-                        <a href="#">Forum</a>
-                    </div>
-                    <div class="item">
-                        <a href="#">Streams</a>
-                    </div>
-                    <div class="item">
-                        <a href="">La Boutique</a>
-                    </div>
-                    <div class="ui dropdown item">
-                        Jouer à ... <i class="dropdown icon"></i>
-                        <div class="menu" role="menu">
-                            <div class="item">
-                                <a href="#">Agario</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="right menu">
-                        @if (Auth::guest())
-                        <div class="item"><a href="{{ route('login') }}">Login</a></div>
-                        <div class="item"><a href="{{ route('register') }}">Register</a></div>
-                        @else
-                        <div class="item"><a href=""><img src="" class="ui avatar image" alt="avatar">  Mon Profil</a></div>
-                        <a href="" class="item"><img src="" class="ui avatar image" alt="avatar">  La Boutique ({{Auth::user()->player->rubis}} R)</a>
-                        <a class="messenger item" href="">
-                            <i class="mail outline large icon" style="line-height: 0.95em;"></i>
-                            <span class="ui tiny red label">10</span>
-                        </a>
-                        <div class="ui dropdown item">
-                            <i class="user icon"></i> {{ Auth::user()->name }} <i class="dropdown icon"></i>
-                            <div class="menu" role="menu">
-                                <div class="item">
-                                    <a href="">Mon Profil</a>
-                                </div>
-                                <div class="divider"></div>
-                                <div class="item">
-                                    <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
+        <nav class="ui menu inverted navbar">
+            <a href="" class="header item">Hopital Nord Ouest Villefranche</a>
+            <div class="right menu">
+                <div class="item">
+                    <i class="user circle icon"></i>
+                    <div class="ui input">
+                        <input type="input" placeholder="Identifiant">
                     </div>
                 </div>
-            </nav>
-        </header>
-
+                <div class="item">
+                    <i class="lock icon"></i>
+                    <div class="ui input">
+                        <input type="password" placeholder="Mot de passe">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="ui buttons">
+                        <button class="ui button">Se connecter</button>
+                        <div class="or" data-text="ou"></div>
+                        <button class="ui positive button">S'inscrire</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
         @yield('content')
     </div>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
 </body>
+<footer>
+    <div class="ui four column centered grid">
+        <div class="two wide column">
+            <p> <b>Hopital NORD OUEST VILLEFRANCHE </b></p>
+        </div>
+        <div class="two wide column">
+
+        </div>
+        <div class="eight wide center aligned column">
+            <a href="">Services de soins</a>
+            <a href="">Emploi du temps</a>
+            <a href="">A propos</a>
+            <a href="">Nous contacter</a>
+            <p>Copyright © 2017 IUT Lyon 1. Tous droits réservés.</p>
+        </div>
+        <div class="two wide  column">
+            <button class="ui circular facebook icon button">
+                <i class="facebook icon"></i>
+            </button>
+            <button class="ui circular twitter icon button">
+                <i class="twitter icon"></i>
+            </button>
+            <button class="ui circular google plus icon button">
+                <i class="google icon"></i>
+            </button>
+            <p>
+                <i class="call icon">04.78.04.04.04</i>
+            </p>
+        </div>
+    </div>
+</footer>
 </html>

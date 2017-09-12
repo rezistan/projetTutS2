@@ -1,0 +1,42 @@
+@import "variables";
+.ui.radio.checkbox {
+ 	padding-right : 15px;
+ 	padding-top : 5px;
+ }
+
+ .quatreLignes .ui.three.buttons>.button , .quatreLignes .ui.two.buttons>.button , .quatreLignes .ui.button {
+ 	height: 204px;
+ }
+
+ .troisLignes .ui.three.buttons>.button , .troisLignes .ui.two.buttons>.button , .troisLignes .ui.button{
+ 	height: 149px;	
+ }
+
+ .deuxLignes .ui.three.buttons>.button , .deuxLignes .ui.two.buttons>.button , .deuxLignes .ui.button {
+ 	height: 95px;
+ }
+
+ .uneLigne .ui.button {
+ 	height: 40px;
+ }
+
+ .services {
+ 	font-weight: bold;
+ }
+
+ td {
+ 	height: 54px;
+ }
+
+ footer a {
+ 	padding-right: 14px;
+ }
+
+ td .ui.button, td .ui.buttons .button, td .ui.buttons .or {
+ 	font-weight : normal;
+ 	font-size: 0.9rem;
+ }
+
+ .ui.button p {
+ 	line-height: 1.1em;
+ }

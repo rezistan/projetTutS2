@@ -12,7 +12,7 @@ const { mix } = require('laravel-mix');
  */
 mix.sourceMaps();
 
-mix.combine(['resources/assets/semantic/dist/semantic.css'], 'public/css/libs.css')
-    .copy('resources/assets/semantic/dist/themes', 'public/css/themes', false)
-    .sass('resources/assets/sass/app.scss', 'public/css')
-    .js('resources/assets/js/app.js', 'public/js');
+mix.combine(['resources/assets/semantic/dist/semantic.css'], 'public/css/libs.css') // fusionner deux fichiers
+    .copy('resources/assets/semantic/dist/themes', 'public/css/themes', false) // copier un répertoire dans le répertoire public
+    .sass('resources/assets/sass/app.scss', 'public/css') // décompiler sass
+    .js('resources/assets/js/app.js', 'public/js'); // décompiler js

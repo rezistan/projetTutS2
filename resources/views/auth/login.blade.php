@@ -9,13 +9,13 @@
                 <form class="ui form" role="form" method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}
 
-                    <div class="inline columned field{{ $errors->has('name') ? ' error' : '' }}">
-                        <label for="name" class="four wide field">Username</label>
-                        <input id="name" class="twelve wide field" type="text" name="name" value="{{ old('name') }}" required autofocus>
+                    <div class="inline columned field{{ $errors->has('email') ? ' error' : '' }}">
+                        <label for="email" class="four wide field">Adresse email</label>
+                        <input id="email" class="twelve wide field" type="text" name="email" value="{{ old('email') }}" required autofocus>
 
-                        @if ($errors->has('name'))
+                        @if ($errors->has('email'))
                         <span class="help-block">
-                                <strong>{{ $errors->first('name') }}</strong>
+                                <strong>{{ $errors->first('email') }}</strong>
                             </span>
                         @endif
                     </div>

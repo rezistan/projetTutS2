@@ -20,7 +20,7 @@
     <div id="app">
         <nav class="ui menu inverted navbar">
             <a href="" class="header item">Hopital Nord Ouest Villefranche</a>
-            <div class="right menu">
+            <!--<div class="right menu">
                 <div class="item">
                     <i class="user circle icon"></i>
                     <div class="ui input">
@@ -40,7 +40,7 @@
                         <button class="ui positive button">S'inscrire</button>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </nav>
         @yield('content')
     </div>

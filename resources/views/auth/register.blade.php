@@ -19,15 +19,27 @@
                 <form class="ui form" role="form" method="POST" action="{{ route('register') }}">
                     {{ csrf_field() }}
 
-                    <div class="inline columned field{{ $errors->has('name') ? ' error' : '' }}">
-                        <label for="name" class="four wide field">Name</label>
-                        <input id="name" class="twelve wide field" type="text" name="name" value="{{ old('name') }}" required autofocus>
+                    <div class="inline columned field{{ $errors->has('firstname') ? ' error' : '' }}">
+                        <label for="firstname" class="four wide field">Firstname</label>
+                        <input id="firstname" class="twelve wide field" type="text" name="firstname" value="{{ old('firstname') }}" required autofocus>
+                    </div>
 
+                    <div class="inline columned field{{ $errors->has('lastname') ? ' error' : '' }}">
+                        <label for="lastname" class="four wide field">Lastname</label>
+                        <input id="lastname" class="twelve wide field" type="text" name="lastname" value="{{ old('lastname') }}" required>
                     </div>
 
                     <div class="inline columned field{{ $errors->has('email') ? ' error' : '' }}">
                         <label for="email" class="four wide field">E-Mail Address</label>
                         <input id="email" type="email" class="twelve wide field" name="email" value="{{ old('email') }}" required>
+                    </div>
+
+                    <div class="inline columned field{{ $errors->has('job') ? ' error' : '' }}">
+                        <label for="job" class="four wide field">Job</label>
+                        <select id="job" class="twelve wide field" name="job" required>
+                            <option value="1">Médecin</option>
+                            <option value="2">Infirmi(ère/er)</option>
+                        </select>
                     </div>
 
                     <div class="inline columned field{{ $errors->has('password') ? ' error' : '' }}">

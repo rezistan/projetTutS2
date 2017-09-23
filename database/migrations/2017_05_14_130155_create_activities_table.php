@@ -17,13 +17,13 @@ class CreateActivitiesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('task_id');
             $table->unsignedInteger('room_id');
-            $table->unsignedInteger('user_id');
+            //$table->unsignedInteger('group_id');
             $table->timestamps();
             $table->timestamp('ended_at')->nullable();
 
             $table->foreign('task_id', 'fk_activity_task')->references('id')->on('tasks');
             $table->foreign('room_id', 'fk_activity_room')->references('id')->on('rooms');
-            $table->foreign('user_id', 'fk_activity_user')->references('id')->on('users');
+            //$table->foreign('group_id', 'fk_activity_group')->references('id')->on('groups');
         });
     }
 
@@ -35,7 +35,7 @@ class CreateActivitiesTable extends Migration
     public function down()
     {
         Schema::table('activities', function(Blueprint $table) {
-            $table->dropForeign('fk_activity_user');
+            //$table->dropForeign('fk_activity_group');
             $table->dropForeign('fk_activity_room');
             $table->dropForeign('fk_activity_task');
         });

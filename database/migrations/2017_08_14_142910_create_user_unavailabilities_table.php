@@ -17,7 +17,8 @@ class CreateUserUnavailabilitiesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('reason');
-            $table->timestamps();
+
+            $table->timestamp('started_at')->nullable();
             $table->timestamp('ended_at')->nullable();
 
             $table->foreign('user_id', 'fk_user_unavailability_user')->references('id')->on('users');

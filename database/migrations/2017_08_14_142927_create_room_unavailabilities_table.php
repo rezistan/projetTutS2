@@ -17,7 +17,8 @@ class CreateRoomUnavailabilitiesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('room_id');
             $table->string('reason');
-            $table->timestamps();
+
+            $table->timestamp('started_at')->nullable();
             $table->timestamp('ended_at')->nullable();
 
             $table->foreign('room_id', 'fk_room_unavailability_user')->references('id')->on('users');

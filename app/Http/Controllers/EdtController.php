@@ -46,6 +46,10 @@ class EdtController extends Controller
     public function index()
     {
         $this->user_activities = \Auth::user()->activities;
+        foreach($this->user_activities as $activity) {
+            $activity->carbonize();
+        }
+        //dd($this->user_activities);
         //$this->user_activities = $activities->groupBy();
         $planning = $this->getPlanning();
         return view('edt', compact('planning')); // redirige à la vue
@@ -61,21 +65,45 @@ class EdtController extends Controller
         $planning .= '<thead><tr><th></th><th>Lundi</th><th>Mardi</th><th>Mercredi</th><th>Jeudi</th><th>Vendredi</th></tr></thead>';
 
         $planning .= '<tbody>';
-
-        for ($rows = 0; $rows < $this->nb_row; $rows++) {
+        $lastrow = -1;
+        $row = 0;
+        while($row < $this->nb_row) {
             $planning .= '<tr>';
-            for ($columns = 0; $columns < $this->nb_col; $columns++) {
-                $planning.= '<td></td>';
+            $horaire = $row+8;
+            $col = 0;
+            while($col < $this->nb_col) {
+                if($row > $lastrow) {
+                    $planning .= '<td>'.$horaire.'h</td>';
+                    $lastrow = $row;
+                } else {
+                    $found = false;
+                    foreach($this->user_activities as $activity) {
+                        if($activity->getDay() === $col && $activity->getBeginHour() === $horaire) {
+                            $diff = $activity->getEndHour() - $horaire;
+                            $planning .= '<td rowspan="'.$diff.'"><a class="fluid ui simple dropdown '.$activity->task->color.' button">
+                                          <p class="services">'.$activity->task->task.'</p>
+                                          <p></p> <!-- $activity->users -->
+                                          <p>'.$activity->room->room.'</p>
+                                          <div class="menu">
+                                              <div class="item"><i class="edit icon"></i> Modifier</div>
+                                              <div class="item"><i class="delete icon"></i> Supprimer</div>
+                                              <div class="item"><i class="hide icon"></i> Cacher</div>
+                                          </div>
+                                       </a></td>';
+                            $found = true;
+                        }
+                    }
+                    if(!$found) $planning .= '<td></td>';
+                }
+                $col++;
             }
             $planning .= '</tr>';
+            $row++;
         }
 
         $planning .= '</tbody>';
         $planning .= '</table>';
 
-        foreach($this->user_activities as $activity) {
-            $activity->carbonize();
-        }
         return $planning;
     }
 

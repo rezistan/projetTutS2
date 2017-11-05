@@ -68,7 +68,7 @@ class User extends Authenticatable
      */
     public function activities()
     {
-        return $this->belongsToMany('App\Activity', 'activity_groups');
+        return $this->belongsToMany('App\Activity', 'activity_groups')->orderBy('started_at');
     }
 
     /**

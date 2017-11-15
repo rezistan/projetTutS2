@@ -47,7 +47,6 @@ class CreateActivityGroupsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('activity_id');
-            $table->timestamps();
 
             $table->foreign('user_id', 'fk_group_user')->references('id')->on('users');
             $table->foreign('activity_id', 'fk_group_activity')->references('id')->on('activities');

@@ -51,7 +51,14 @@
     </div>
 </div>
 
-<table class="ui center aligned unstackable celled compact structured definition padded large table">
+<pre>
+    <?php
+    //print_r($activities)
+    ?>
+</pre>
+<?= $planning ?>
+
+<table class="ui center aligned unstackable celled compact definition table">
     <thead>
     <tr>
         <th></th>
@@ -63,7 +70,7 @@
     </tr>
     </thead>
     <tbody>
-        <tr>                                                         <!--        !!!!!!!!! ROW 8H !!!!!!!!!!!             -->
+        <tr>
             <td>8h</td>
             <td rowspan="2">
                 <a class="fluid ui simple dropdown orange button">
@@ -83,7 +90,7 @@
             <td></td>
         </tr>
         <tr>
-            <td>9h</td>                                 <!--        !!!!!!!!! ROW 9H !!!!!!!!!!!             -->
+            <td>9h</td>
             <td rowspan="3">
                 <div class="three ui buttons">
                     <a class=" ui  simple dropdown purple button">
@@ -221,7 +228,7 @@
                 </div>
             </td>
         </tr>
-        <tr>                                                      <!--        !!!!!!!!! ROW 10H !!!!!!!!!!!             -->
+        <tr>
             <td >10h</td>
             <td rowspan="2">
                 <div class="three ui buttons">
@@ -258,10 +265,10 @@
                 </div>
             </td>
         </tr>
-        <tr>                         <!--        !!!!!!!!! ROW 11H !!!!!!!!!!!             -->
+        <tr>
             <td>11h</td>
         </tr>
-        <tr>                              <!--        !!!!!!!!! ROW 12H !!!!!!!!!!!             -->
+        <tr>
             <td>12h</td>
             <td></td>
             <td></td>
@@ -269,7 +276,7 @@
             <td></td>
             <td></td>
         </tr>
-        <tr>                                  <!--        !!!!!!!!! ROW 13H !!!!!!!!!!!             -->
+        <tr>
             <td>13h</td>
             <td rowspan="3">
                 <div class="three ui buttons">
@@ -310,7 +317,7 @@
             <td></td>
             <td></td>
         </tr>
-        <tr>                                      <!--        !!!!!!!!! ROW 14H !!!!!!!!!!!             -->
+        <tr>
             <td>14h</td>
             <td rowspan="3">
                 <div class="three ui buttons">
@@ -439,14 +446,14 @@
                 </div>
             </td>
         </tr>
-        <tr>                                          <!--        !!!!!!!!! ROW 15H !!!!!!!!!!!             -->
+        <tr>
             <td>15h</td>
         </tr>
-        <tr>                                      <!--        !!!!!!!!! ROW 16H !!!!!!!!!!!             -->
+        <tr>
             <td>16h</td>
             <td></td>
         </tr>
-        <tr>                                          <!--        !!!!!!!!! ROW 17H !!!!!!!!!!!             -->
+        <tr>
             <td>17h</td>
             <td>
                 <a class="fluid ui simple dropdown red button">

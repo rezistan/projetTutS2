@@ -27,13 +27,53 @@
  * Pour mieux comprendre, se référer à la documentation: https://laravel.com/docs/5.4/routing
  */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-})->name('index');
+})->name('index');*/
 
-Route::group(['prefix' => 'edt'], function() {
-    Route::get('/', 'EdtController@index')->name('edt.index'); // get => /edt/
-});
+//Auth::routes();
+Route::get('/home', 'EdtController@index')->name('edt.index'); // get => /edt
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home'); // get => /home
+//////////////////////////////////////
+/// Set Authentification routes manually
+// Authentication Routes...
+Route::get('/', [
+    'as' => 'login',
+    'uses' => 'Auth\LoginController@showLoginForm'
+]);
+Route::post('/', [
+    'as' => '',
+    'uses' => 'Auth\LoginController@login'
+]);
+Route::post('logout', [
+    'as' => 'logout',
+    'uses' => 'Auth\LoginController@logout'
+]);
+
+// Password Reset Routes...
+Route::post('password/email', [
+    'as' => 'password.email',
+    'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail'
+]);
+Route::get('password/reset', [
+    'as' => 'password.request',
+    'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm'
+]);
+Route::post('password/reset', [
+    'as' => '',
+    'uses' => 'Auth\ResetPasswordController@reset'
+]);
+Route::get('password/reset/{token}', [
+    'as' => 'password.reset',
+    'uses' => 'Auth\ResetPasswordController@showResetForm'
+]);
+
+// Registration Routes...
+Route::get('register', [
+    'as' => 'register',
+    'uses' => 'Auth\RegisterController@showRegistrationForm'
+]);
+Route::post('register', [
+    'as' => '',
+    'uses' => 'Auth\RegisterController@register'
+]);

@@ -1,51 +1,77 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## A propos du projet
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Etudiants: Julien REYNAUD, Thomas BOFFY, Marine MOLLIER, Sichialun KOUSONSAVATH & Régis BADIANE, de l’IUT Lyon 1, dans le cadre du DUT Informatique.
 
-## About Laravel
+L’objectif de ce projet tuteuré est de créer une application Web permettant de gérer les plannings d’activités dans un service médical.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Ce planning présentera à termes les fonctionnalités suivantes:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Authentification
+- Possibilité pour le/la cadre de santé de gérer les plannings des médecins
+- Affichage des activités (une salle, une tâche (service concerné), un médecin, une date et un horaire) sur un planning.
+- Affichage d’un planning personnel, propre à chaque utilisateurs.
+- Affichage d’un planning pour chaque service et chaque médecin.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+Le développement de ces fonctionnalités sera détaillé dans les commits.
 
-## Learning Laravel
+## Comment le faire tourner ?
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+### Dépendances
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+Les dépendances seront installées lors de la configuration du projet, et sont accessibles à partir des fichiers composer.json et package.json . Voici les principales dépendances que le projet utilise:
 
-## Laravel Sponsors
+- npm: *latest*,
+- composer: *latest*,
+- PHP: ≥ *5.6*
+- Laravel: *5.4*
+- semantic-ui: *latest*
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+### Faire tourner le projet
 
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- **[Codecourse](https://www.codecourse.com)**
-- [Fragrantica](https://www.fragrantica.com)
+#### npm, composer, .env
 
-## Contributing
+Pour commencer, notre projet a des « dépendances ». Elles doivent être chargées au travers des gestionnaires dont le projet a besoin (à savoir npm pour nodejs et composer pour PHP). Nous devons ainsi lancer les commandes suivantes:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+```
+npm install
+composer install
+```
 
-## Security Vulnerabilities
+Laravel a besoin d’un fichier contenant une variable d’environnement, non présent sur le répertoire pour des raisons de sécurité. Pour créer ce fichier, vous devrez taper les commandes suivantes:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+```
+copy .env.example .env    # pour WINDOWS
+cp .env.example .env    # pour LINUX
+php artisan key:generate
+```
 
-## License
+La dernière commande va générer la variable d’environnement APP_KEY. Cette dernière servira à crypter les sessions.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+#### Base de données, migrations et graines
+
+Maintenant que le fichier .env est créé, il faut le configurer. Normalement, les paramètres de base devraient être corrects, à l’exception de trois champs. Vous devrez les configurer comme ci-dessous:
+
+```php
+DB_DATABASE=nomdb    # à remplacer par le nom de votre db
+DB_USERNAME=nomuser    # à remplacer par l’utilisateur de votre db
+DB_PASSWORD=motdepassedb    # à remplacer par le mot de passe de votre db
+```
+
+Par la suite, nous créerons les tables utilisées par le projet.
+Leur structure est préparée dans les migrations (/database/migrations). Ce seront elles qui permettront de créer les tables dont nous avons besoin.  
+Ensuite, pour les remplir, nous utiliserons les graines, ou seeds (/database/seeds).
+
+Il suffit de lancer les deux commandes suivantes:
+
+```
+php artisan migrate
+php artisan db:seed
+```
+
+Il ne nous reste maintenant plus qu’à allumer le serveur:
+
+```
+php artisan serve
+```
+
+Et voilà, le tour est joué ! Vous devriez avoir accès au projet. Maintenant, lisez bien les commentaires dans le code ! Ils vous aideront à mieux comprendre.

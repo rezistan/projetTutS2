@@ -20,36 +20,59 @@
     <div id="app">
         <nav class="ui menu inverted navbar">
             <a href="/" class="header item">Hopital Nord Ouest Villefranche</a>
-            <!--<div class="right menu">
+            <div class="right menu">
+                <div class="item">
+                    
+                    <!-- Login fields -->
+<div class="ui container">
+    <div class="ui centered grid">
+            <form class="ui form" role="form" method="POST" action="{{ route('login') }}">
+                    {{ csrf_field() }}
+
+            <!-- ///////////////////////// -->
+            <div class="right menu">
                 <div class="item">
                     <i class="user circle icon"></i>
                     <div class="ui input">
-                        <input type="input" placeholder="Identifiant">
+                        <input id="email" type="input" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
+                        @if ($errors->has('email'))
+                        <span class="help-block">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
+
                 <div class="item">
                     <i class="lock icon"></i>
                     <div class="ui input">
-                        <input type="password" placeholder="Mot de passe">
+                        <input id="password" type="password" placeholder="Mot de passe" class="field" name="password" required>
+                        @if ($errors->has('password'))
+                        <span class="help-block">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div class="item">
                     <div class="ui buttons">
-                        <button class="ui button">Se connecter</button>
+                        <button type="submit" class="ui green button">Se connecter</button>
                         <div class="or" data-text="ou"></div>
-                        <button class="ui positive button">S'inscrire</button>
+                        <a class="ui white button" href="{{ route('register') }}">
+                        S'inscrire
+                        </a>
                     </div>
                 </div>
-            </div>-->
+            </div>
+            <!-- ///////////////////////// -->
+            
+            </form>
+    </div>
 
-            <div class="item">
-                <form id="logout" action="{{route('logout')}}" method="POST" style="display: none;">{{csrf_field()}}</form>
-                <a class="ui blue button" href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout').submit();">
-                    <span class="name">Déconnexion</span>
-                </a>
+    <!-- End of login -->
+                </div>
             </div>
         </nav>
-
         <div class="ui menu">
                 <a href="/" class="header item">
                     Accueil

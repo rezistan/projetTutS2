@@ -1,37 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="ui menu">
-    <a class="header item">
-        Accueil
-    </a>
-    <a class="item">
-        Services de soins
-    </a>
-    <a class="active item">
-        Emploi du temps
-    </a>
-    <a class="item">
-        A propos
-    </a>
-    <a class="item">
-        Nous contacter
-    </a>
-    <div class="item">
-        <form id="logout" action="{{route('logout')}}" method="POST" style="display: none;">{{csrf_field()}}</form>
-        <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout').submit();">
-            <span class="name">Logout</span>
-        </a>
-    </div>
-    <div class="right menu">
-        <div class="item">
-            <div class="ui icon input">
-                <input type="text" placeholder="Taper votre recherche...">
-                <i class="search link icon"></i>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="ui message">
     <div class="header">

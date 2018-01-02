@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="icon" type="image/x-icon" href="/edt.ico" >
+    <link rel="icon" type="image/x-icon" href="/edt.ico">
 
     <!-- Styles -->
     <link href="/css/libs.css" rel="stylesheet">
@@ -17,86 +17,112 @@
 
 </head>
 <body>
-    <div id="app">
-        <nav class="ui menu inverted navbar">
-            <a href="/" class="header item">Hopital Nord Ouest Villefranche</a>
-            <!--<div class="right menu">
+<div id="app">
+    <nav class="ui menu inverted navbar">
+        <a href="/" class="header item">Hopital Nord Ouest Villefranche</a>
+        @if(Auth::guest())
+            <div class="right menu">
                 <div class="item">
-                    <i class="user circle icon"></i>
-                    <div class="ui input">
-                        <input type="input" placeholder="Identifiant">
-                    </div>
-                </div>
-                <div class="item">
-                    <i class="lock icon"></i>
-                    <div class="ui input">
-                        <input type="password" placeholder="Mot de passe">
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="ui buttons">
-                        <button class="ui button">Se connecter</button>
-                        <div class="or" data-text="ou"></div>
-                        <button class="ui positive button">S'inscrire</button>
-                    </div>
-                </div>
-            </div>-->
+                    <div class="ui container">
+                        <div class="ui centered grid">
+                            <form class="ui form" role="form" method="POST" action="{{ route('login') }}">
+                            {{ csrf_field() }}
 
+                            <!-- ///////////////////////// -->
+                                <div class="right menu">
+                                    <div class="item">
+                                        <i class="user circle icon"></i>
+                                        <div class="ui input">
+                                            <input id="email" type="input" placeholder="Email" name="email"
+                                                   value="{{ old('email') }}" required autofocus>
+                                            @if ($errors->has('email'))
+                                                <span class="help-block">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <i class="lock icon"></i>
+                                        <div class="ui input">
+                                            <input id="password" type="password" placeholder="Mot de passe"
+                                                   class="field"
+                                                   name="password" required>
+                                            @if ($errors->has('password'))
+                                                <span class="help-block">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui buttons">
+                                            <button type="submit" class="ui green button">Se connecter</button>
+                                            <div class="or" data-text="ou"></div>
+                                            <a class="ui white button" href="{{ route('register') }}">
+                                                S'inscrire
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ///////////////////////// -->
+                            </form>
+                        </div>
+                        <!-- End of login -->
+                    </div>
+                </div>
+            </div>
+        @else
             <div class="item">
-                <form id="logout" action="{{route('logout')}}" method="POST" style="display: none;">{{csrf_field()}}</form>
-                <a class="ui blue button" href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout').submit();">
+                <form id="logout" action="{{route('logout')}}" method="POST"
+                      style="display: none;">{{csrf_field()}}</form>
+                <a class="ui blue button" href="{{route('logout')}}"
+                   onclick="event.preventDefault();document.getElementById('logout').submit();">
                     <span class="name">Déconnexion</span>
                 </a>
             </div>
-        </nav>
-
+        @endif
+    </nav>
+    @if(!Auth::guest())
         <div class="ui menu">
-                <a href="/" class="header item">
-                    Accueil
-                </a>
-                <a class="item">
-                    Services de soins
-                </a>
-                <a class="active item">
-                    Emploi du temps
-                </a>
-                <a class="item">
-                    A propos
-                </a>
-                <a class="item">
-                    Nous contacter
-                </a>
-    
-                <!-- Logout masqué
+            <a href="/" class="header item">
+                Accueil
+            </a>
+            <a class="item">
+                Services de soins
+            </a>
+            <a class="active item" href="/home">
+                Emploi du temps
+            </a>
+            <a class="item">
+                A propos
+            </a>
+            <a class="item">
+                Nous contacter
+            </a>
+            <div class="right menu">
                 <div class="item">
-                    <form id="logout" action="{{route('logout')}}" method="POST" style="display: none;">{{csrf_field()}}</form>
-                    <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout').submit();">
-                        <span class="name">Logout</span>
-                    </a>
-                </div>
-                -->
-
-                <div class="right menu">
-                    <div class="item">
-                        <div class="ui icon input">
-                            <input type="text" placeholder="Taper votre recherche...">
-                            <i class="search link icon"></i>
-                        </div>  
+                    <div class="ui icon input">
+                        <input type="text" placeholder="Taper votre recherche...">
+                        <i class="search link icon"></i>
                     </div>
                 </div>
             </div>
-        @yield('content')
-    </div>
+        </div>
+    @endif
+    @yield('content')
+</div>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
+<!-- Scripts -->
+<script src="/js/app.js"></script>
 </body>
 <footer>
     <hr>
     <br>
     <div class="ui four column centered grid">
         <div class="two wide column">
-            <p> <b>Hopital NORD OUEST VILLEFRANCHE </b></p>
+            <p><b>Hopital NORD OUEST VILLEFRANCHE </b></p>
         </div>
         <div class="two wide column">
 

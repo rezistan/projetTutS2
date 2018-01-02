@@ -44,5 +44,38 @@ td .ui.buttons .or {
   line-height: 1.1em;
 }
 
+#agenda {
+  background-color: lightgrey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.day {
+  border-left: dashed 1px;
+  border-top: dashed 1px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.day .h-1 {
+  height: 50px;
+}
+
+.day .h-2 {
+  height: 100px;
+}
+
+.day .h-3 {
+  height: 150px;
+}
+
+.day .h-4 {
+  height: 200px;
+}
+
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIvY3NzL2FwcC5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

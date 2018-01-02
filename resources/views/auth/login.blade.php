@@ -1,23 +1,10 @@
-@extends('layouts.appHome')
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="semantic/dist/semantic.min.css">
-  </head>
-  <body>
+@extends('layouts.app')
 
 @section('content')
-
 <img class="ui centered image" src="/img/home/banniere.jpg" width="95%">
-
 <br>
-
 <div class="ui centered grid">
-
   <div class="three wide column">
-
     <div class="ui inverted vertical menu">
         <h3 class="active item">
             Services de Soins:
@@ -45,7 +32,6 @@
         </a>
     </div>
   </div>
-
   <div class="eight wide column">
     <div class="ui top attached tabular menu">
     <a class="active item">
@@ -67,16 +53,11 @@
       Donec sem massa, dignissim sed dapibus nec, placerat rhoncus urna. Suspendisse iaculis convallis ante quis malesuada. Mauris et imperdiet enim, vitae venenatis lacus. Nullam ultricies purus et elit imperdiet, sed vulputate orci feugiat. Vivamus bibendum eget tellus vitae blandit. Nulla egestas volutpat risus vel gravida. Suspendisse ultrices a lorem sed dictum. Quisque at est turpis. Nulla iaculis justo vitae erat dapibus, laoreet tincidunt risus tempus. Ut non nunc nec purus rutrum sodales.
     </div>
   </div>
-
   <div class="four wide column">
     <img class="ui centered image" src="/img/home/call15.jpg">
   </div>
-
 </div>
-
-<br>
 <div class="ui centered grid">
-
     <div class="ui inverted top attached menu">
         <a class="active item">
             Qui sommes-nous ?
@@ -141,12 +122,4 @@
     </div>
 </div>
 -->
-
-
 @endsection
-      
-
-
-    <script src="semantic/dist/semantic.min.js"></script>
-  </body>
-</html>

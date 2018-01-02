@@ -32,7 +32,7 @@
 })->name('index');*/
 
 //Auth::routes();
-Route::get('/home', 'EdtController@index')->name('edt.index'); // get => /edt
+Route::get('/home/{year?}/{week?}', 'EdtController@index')->name('edt.index'); // get => /edt
 
 //////////////////////////////////////
 /// Set Authentification routes manually

@@ -1,0 +1,29 @@
+#agenda {
+  background-color: lightgrey;
+  display: flex;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.day {
+  border-left: dashed 1px;
+  border-top: dashed 1px;
+  flex: 1;
+}
+
+
+.day .h-1 {
+  height: 50px;
+}
+
+.day .h-2 {
+  height: 100px;
+}
+
+.day .h-3 {
+  height: 150px;
+}
+
+.day .h-4 {
+  height: 200px;
+}

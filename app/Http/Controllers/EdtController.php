@@ -132,39 +132,66 @@ class EdtController extends Controller
                         $row += $diff - 1;
                         $planning .= '<div class="day h-' . $diff . '"><a class="fluid ui simple dropdown ' . $activity->task->color . ' button">
                                           <div class="menu">
-                                              <div class="item"><i class="edit icon"></i> Modifier</div>
-                                              <!--<div id="form">
-                                                 <h3>Modifier un créneau</h3>
-                                                 <form method="post" action="index?week=">
-                                                     <label for="subject">Type de service:</label>
-                                                     <select id="subject" name="subject"></select>
-                                                     <label for="type">Nom du médecin:</label>
-                                                     <select id="type" name="type">
-                                                     <option></option>
-                                                     <option value="1">Devoir</option>
-                                                     <option value="2">Interrogation</option>
-                                                     </select>
-                                                     <label for="salle">Salle:</label>
-                                                     <select id="salle" name="salle"></select>
-                                                     <label for="date">Date:</label>
-                                                     <input type="date" name="date"/>
-                                                     <label for="description">Description:</label>
-                                                     <textarea name="description"></textarea>
-                                                     <label for="password">Code d\'accès</label>
-                                                     <input type="password" name="password"/>
-                                                     <input type="hidden" name="formid" value="1"/>
-                                                     <p>Tous les champs sont obligatoires</p>
-                                                     <input type="submit" value="Poster"/>
-                                                 </form>
-                                              </div>-->
+                                                <div class="simple dropdown item"><i class="edit icon"></i>Modifier
+                                                      <div class="menu">
+                                                          <h3>Modifier ce créneau</h3>
+                                                          <form class="ui form" method="post" action="">
+                                                              <div class="field">
+                                                                  <label>Tâche</label>
+                                                                  <div class="ui selection dropdown">
+                                                                      <input type="hidden" name="task">
+                                                                      <i class="dropdown icon"></i>
+                                                                      <div class="default text">Tâche souhaitée</div>
+                                                                      <div class="menu">
+                                                                          <div class="item" data-value="1">tâche1</div>
+                                                                          <div class="item" data-value="2">tâche2</div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="field">
+                                                                  <label>Salle</label>
+                                                                  <div class="ui selection dropdown">
+                                                                      <input type="hidden" name="room">
+                                                                      <i class="dropdown icon"></i>
+                                                                      <div class="default text">Salle souhaitée</div>
+                                                                      <div class="menu">
+                                                                          <div class="item" data-value="1">salleDispo1</div>
+                                                                          <div class="item" data-value="2">salleDispo2</div>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="field">
+                                                                  <label>Médecins</label>
+                                                                  <select multiple="" class="ui dropdown">
+                                                                      <option value="">Sélectionnez un ou plusieurs médecins</option>
+                                                                      <option value="AF">Vincent</option>
+                                                                      <option value="AF">Philippe</option>
+                                                                  </select>
+                                                              </div>
+                                                              <div class="field">
+                                                                  <label>Jour</label>
+                                                                  <input type="date" name="day">
+                                                              </div>
+                                                              <div class="field">
+                                                                  <label>Heure de début</label>
+                                                                  <input type="time" name="begin">
+                                                              </div>
+                                                              <div class="field">
+                                                                  <label>Heure de fin</label>
+                                                                  <input type="time" name="end">
+                                                              </div>
+                                                              <button class="ui button" type="submit">Modifier</button>
+                                                          </form>
+                                                      </div>
+                                              </div>
                                               <div class="item"><i class="delete icon"></i>
                                                 <form method="post" action="' . route('edt.delete') . '">
                                                   <input type="hidden" name="_token" value="' . csrf_token() . '">
                                                   <input type="hidden" name="id" value="' . $activity->id . '">
-                                                  <button type="submit">Supprimé</button>
+                                                  <button type="submit">Supprimer</button>
                                                  </form>
                                               </div>
-                                        </div>
+                                          </div>
                                           <p>' . $activity->task->task . '</p>
                                           <p>' . $activity->users->implode('firstname', ', ') . '</p>
                                           <p>' . $activity->room->room . '</p>
@@ -202,6 +229,7 @@ class EdtController extends Controller
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request)
     {

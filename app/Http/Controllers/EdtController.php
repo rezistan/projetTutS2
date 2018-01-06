@@ -39,7 +39,7 @@ class EdtController extends Controller
     const NB_HORAIRE = 10;
     const MAXWEEK = 52;
     const MINWEEK = 1;
-    const DATES = ["", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
+    //const DATES = ["", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"];
 
 
     /**
@@ -52,6 +52,7 @@ class EdtController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        setlocale(LC_TIME, 'fr_FR.utf8');
     }
 
     /**
@@ -121,8 +122,12 @@ class EdtController extends Controller
             $planning .= '<div class="day h-1">' . $horaire . 'h</div>';
         }
         $planning .= '</div>';
+        $date = new Carbon();
+        $date->setISODate($this->years['curr'],$this->weeks['curr']);
+        $d0 = $date->startOfWeek();
         for ($col = 1; $col <= self::NB_JOUR; $col++) {
-            $planning .= '<div class="day h-1">' . self::DATES[$col];
+            $planning .= '<div class="day h-1">'. $d0->formatLocalized('%A %d %B');
+            $d0->addDay();
             for ($row = 0; $row < self::NB_HORAIRE; $row++) {
                 $horaire = $row + 8;
                 $found = false;

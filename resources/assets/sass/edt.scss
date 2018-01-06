@@ -42,3 +42,56 @@
  .ui.button p {
  	line-height: 1.1em;
  }
+
+#addSalle{
+  border : 5px;
+  width: 400px;
+  position: absolute;
+}
+
+#addHomework {
+  border : 5px;
+  width: 400px;
+  position: absolute;
+}
+
+#form {
+  position: absolute;
+  background: #fff;
+  z-index: 2;
+  width: 250px;
+  top: 57px;
+  right: 0px;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 0 20px 20px;
+}
+#form select, #form input[type="date"], #form input[type="password"], #form input[type="text"] {
+  width: 250px;
+  height: 30px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#form textarea {
+  width: 250px;
+  height: 75px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+#form input[type="submit"] {
+  width: 256px;
+  background: #3d556d;
+  border: 2px solid #2c3e50;
+  height: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#form input[type=submit]:hover {
+  background: #476380;
+}
+#form {
+  right: 20px;
+}

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Activity;
 use Carbon\Carbon;
+use Illuminate\Support\MessageBag;
+use App\ActivityGroup;
 
 /**
  * Class EdtController
@@ -131,9 +133,38 @@ class EdtController extends Controller
                         $planning .= '<div class="day h-' . $diff . '"><a class="fluid ui simple dropdown ' . $activity->task->color . ' button">
                                           <div class="menu">
                                               <div class="item"><i class="edit icon"></i> Modifier</div>
-                                              <div class="item"><i class="delete icon"></i> Supprimer</div>
-                                              <div class="item"><i class="hide icon"></i> Cacher</div>
-                                          </div>
+                                              <!--<div id="form">
+                                                 <h3>Modifier un créneau</h3>
+                                                 <form method="post" action="index?week=">
+                                                     <label for="subject">Type de service:</label>
+                                                     <select id="subject" name="subject"></select>
+                                                     <label for="type">Nom du médecin:</label>
+                                                     <select id="type" name="type">
+                                                     <option></option>
+                                                     <option value="1">Devoir</option>
+                                                     <option value="2">Interrogation</option>
+                                                     </select>
+                                                     <label for="salle">Salle:</label>
+                                                     <select id="salle" name="salle"></select>
+                                                     <label for="date">Date:</label>
+                                                     <input type="date" name="date"/>
+                                                     <label for="description">Description:</label>
+                                                     <textarea name="description"></textarea>
+                                                     <label for="password">Code d\'accès</label>
+                                                     <input type="password" name="password"/>
+                                                     <input type="hidden" name="formid" value="1"/>
+                                                     <p>Tous les champs sont obligatoires</p>
+                                                     <input type="submit" value="Poster"/>
+                                                 </form>
+                                              </div>-->
+                                              <div class="item"><i class="delete icon"></i>
+                                                <form method="post" action="' . route('edt.delete') . '">
+                                                  <input type="hidden" name="_token" value="' . csrf_token() . '">
+                                                  <input type="hidden" name="id" value="' . $activity->id . '">
+                                                  <button type="submit">Supprimé</button>
+                                                 </form>
+                                              </div>
+                                        </div>
                                           <p>' . $activity->task->task . '</p>
                                           <p>' . $activity->users->implode('firstname', ', ') . '</p>
                                           <p>' . $activity->room->room . '</p>
@@ -174,6 +205,10 @@ class EdtController extends Controller
      */
     public function delete(Request $request)
     {
-
+        ActivityGroup::where('activity_id', '=', $request->id)->delete();
+        Activity::find($request->id)->delete();
+        $message = new MessageBag();
+        $message->add('success', "Créneau supprimé avec succès");
+        return back()->with('message', $message);
     }
 }

@@ -111,6 +111,23 @@
             </div>
         </div>
     @endif
+    @if (session('message'))
+        <div class="ui container">
+            @foreach(session('message')->messages() as $key=>$value)
+                <div class="ui {{$key}} message">
+                    @if (count($value) > 1)
+                        <ul class="list">
+                            @foreach($value as $message)
+                                <li>{{$message}}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <div class="header">{{$value[0]}}</div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    @endif
     @yield('content')
 </div>
 

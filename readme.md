@@ -33,7 +33,7 @@ Il peut naviguer entre les semaines, l'affichage avec les jours est fonctionnel.
 Les horaires se mettent bien aux bons créneaux, et lorsqu'ils durent quelques heures,
 l'encadré gris prend la place qu'il faut.
 
-![Planning](https://i.imgur.com/InxLjIu.png)
+![Planning](https://i.imgur.com/zD8N3x5.png)
 
 Axes d'amélioration :
 
@@ -51,8 +51,8 @@ Non géré pour le moment.
 A l'heure actuelle, la suppression est fonctionnelle.
 Néanmoins, pour la modification et l'ajout de tâches, il reste encore du travail.
 
-![Ajouter](https://i.imgur.com/ahbq3nC.png) 
-![Modifier](https://i.imgur.com/ahbq3nC.png)
+![Ajouter](https://i.imgur.com/ahbq3nC.png)
+![Modifier](https://i.imgur.com/Uceo6HM.png)
 
 ##### Glisser/Déposer et Impression
 

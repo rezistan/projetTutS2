@@ -1,506 +1,93 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="ui menu">
-    <a class="header item">
-        Accueil
-    </a>
-    <a class="item">
-        Services de soins
-    </a>
-    <a class="active item">
-        Emploi du temps
-    </a>
-    <a class="item">
-        A propos
-    </a>
-    <a class="item">
-        Nous contacter
-    </a>
-    <div class="item">
-        <form id="logout" action="{{route('logout')}}" method="POST" style="display: none;">{{csrf_field()}}</form>
-        <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout').submit();">
-            <span class="name">Logout</span>
+    <div class="ui message">
+        <div class="header">
+            Trier par :
+        </div>
+        <div class="ui radio checkbox">
+            <input type="radio" name="radio" checked="checked" id="radiotri">
+            <label>Personnel</label>
+        </div>
+        <div class="ui radio checkbox">
+            <input type="radio" name="radio">
+            <label>Services</label>
+        </div>
+        <div class="ui radio checkbox">
+            <input type="radio" name="radio">
+            <label>Médecins</label>
+        </div>
+    </div>
+    <div>
+        <a class="large ui left floated simple dropdown right labeled icon brown button">
+            <i class="add circle icon"></i> Ajouter
+            <div class="menu">
+                <h3>Ajouter un créneau</h3>
+                <form class="ui form" method="post" action="{{route('edt.create')}}">
+                    <div class="field">
+                        <label>Tâche</label>
+                        <div class="ui selection dropdown">
+                            <input type="hidden" name="task">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Tâche souhaitée</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">tâche1</div>
+                                <div class="item" data-value="2">tâche2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Salle</label>
+                        <div class="ui selection dropdown">
+                            <input type="hidden" name="room">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Salle souhaitée</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">salleDispo1</div>
+                                <div class="item" data-value="2">salleDispo2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Médecins</label>
+                        <select multiple="" class="ui dropdown">
+                            <option value="">Sélectionnez un ou plusieurs médecins</option>
+                            <option value="AF">Vincent</option>
+                            <option value="AF">Philippe</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Jour</label>
+                        <input type="date" name="day">
+                    </div>
+                    <div class="field">
+                        <label>Heure de début</label>
+                        <input type="time" name="begin">
+                    </div>
+                    <div class="field">
+                        <label>Heure de fin</label>
+                        <input type="time" name="end">
+                    </div>
+                    <button class="ui button" type="submit">Ajouter</button>
+                </form>
+            </div>
         </a>
+        <button class="circular ui right floated labeled icon button">
+            <i class="print icon"></i>
+            Imprimer
+        </button>
+        <div class="ui clearing divider"></div>
     </div>
-    <div class="right menu">
-        <div class="item">
-            <div class="ui icon input">
-                <input type="text" placeholder="Taper votre recherche...">
-                <i class="search link icon"></i>
-            </div>
+    <?=$planning;?>
+    <div class="ui centered grid">
+        <div class="ui pagination menu">
+            <a class="icon item" href="/home/<?=$years['prev']?>/<?=$weeks['prev']?>">
+                <i class="left chevron icon"></i> Semaine précédente
+            </a>
+            <div class="icon item">Planning de l'année <?=$years['curr']?>, semaine <?=$weeks['curr']?></div>
+            <a class="icon item" href="/home/<?=$years['next']?>/<?=$weeks['next']?>">
+                Semaine suivante <i class="right chevron icon"></i>
+            </a>
         </div>
     </div>
-</div>
-
-<div class="ui message">
-    <div class="header">
-        Trier par :
-    </div>
-    <div class="ui radio checkbox">
-        <input type="radio" name="radio" checked="checked" id="radiotri">
-        <label>Personnel</label>
-    </div>
-    <div class="ui radio checkbox">
-        <input type="radio" name="radio">
-        <label>Services</label>
-    </div>
-    <div class="ui radio checkbox">
-        <input type="radio" name="radio">
-        <label>Médecins</label>
-    </div>
-</div>
-
-<pre>
-    <?php
-    //print_r($activities)
-    ?>
-</pre>
-<?= $planning ?>
-
-<table class="ui center aligned unstackable celled compact definition table">
-    <thead>
-    <tr>
-        <th></th>
-        <th>Lundi</th>
-        <th>Mardi</th>
-        <th>Mercredi</th>
-        <th>Jeudi</th>
-        <th>Vendredi</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>8h</td>
-            <td rowspan="2">
-                <a class="fluid ui simple dropdown orange button">
-                    <p class="services">Visite </p>
-                    <p>Dr Martin, Dr Dubois  </p>
-                    <p>Salle 2</p>
-                    <div class="menu">
-                        <div class="item"><i class="edit icon"></i> Modifier</div>
-                        <div class="item"><i class="delete icon"></i> Supprimer</div>
-                        <div class="item"><i class="hide icon"></i> Cacher</div>
-                    </div>
-                </a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>9h</td>
-            <td rowspan="3">
-                <div class="three ui buttons">
-                    <a class=" ui  simple dropdown purple button">
-                        <p class="services">Holters</p>
-                        <p>Dr Test</p>
-                        <p>Salle 20</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown orange button">
-                        <p class="services">Visite</p>
-                        <p>Dr Durand, Dr Robert, Dr Martin</p>
-                        <p>Salle 2</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Test</p>
-                        <p> Salle 13</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-            <td rowspan="3">
-                <div class="three ui buttons">
-                    <a class="ui  simple dropdown orange button">
-                        <p class="services">Visite</p>
-                        <p>Dr Martin, Dr Dubois, Dr Test3</p>
-                        <p>Salle 3</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Durand</p>
-                        <p>Salle 14</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown green button">
-                        <p class="services">Test d'effort</p>
-                        <p>Dr Test</p>
-                        <p>Salle 15</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-            <td rowspan="3">
-                <div class="three ui buttons">
-                    <a class="ui  simple dropdown orange button">
-                        <p class="services">Visite</p>
-                        <p>Dr Robert, Dr Test2, Dr Test3</p>
-                        <p> Salle 1</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Durand</p>
-                        <p> Salle 13</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown green button">
-                        <p class="services">Test d'effort</p>
-                        <p>Dr Durand</p>
-                        <p>Salle 16</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-            <td rowspan="3">
-                <div class="three ui buttons">
-                    <a class="ui  simple dropdown orange button">
-                        <p class="services">Visite</p>
-                        <p>Dr Martin, Dr Test2, Dr Test3</p>
-                        <p>Salle 3</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Test</p>
-                        <p> Salle 14</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown yellow button">
-                        <p class="services">Cardiologie</p>
-                        <p>Dr Test</p>
-                        <p>Salle 11</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td >10h</td>
-            <td rowspan="2">
-                <div class="three ui buttons">
-                    <a class=" ui  simple dropdown red button">
-                        <p class="services">Pédiatrie</p>
-                        <p>Dr Robert</p>
-                        <p>Salle 5</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown yellow button">
-                        <p class="services">Cardiologie</p>
-                        <p>Dr Test</p>
-                        <p>Salle 10</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Durand</p>
-                        <p>Salle 12</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>11h</td>
-        </tr>
-        <tr>
-            <td>12h</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>13h</td>
-            <td rowspan="3">
-                <div class="three ui buttons">
-                    <a class=" ui  simple dropdown green button">
-                        <p class="services">Test d'effort</p>
-                        <p>Dr Dubois, Dr Robert</p>
-                        <p>Salle 15</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Test, Dr Test2</p>
-                        <p>Salle 12</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown red button">
-                        <p class="services">Pédiatrie</p>
-                        <p>Dr Test, Dr Test2</p>
-                        <p>Salle 5
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>14h</td>
-            <td rowspan="3">
-                <div class="three ui buttons">
-                    <a class="ui simple dropdown green button">
-                        <p class="services">Test d'effort</p>
-                        <p>Dr Test</p>
-                        <p>Salle 16</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Test, Dr Test2</p>
-                        <p>Salle 12</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui simple dropdown yellow button">
-                        <p class="services">Cardiologie</p>
-                        <p>Dr Dubois</p>
-                        <p>Salle 11</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-            <td rowspan="3">
-                <div class="two ui buttons">
-                    <a class="ui simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Test, Dr Test2</p>
-                        <p>Salle 12</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui simple dropdown red button">
-                        <p class="services">Pédiatrie</p>
-                        <p>Dr Test</p>
-                        <p>Salle 5</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-            <td rowspan="3">
-                <div class="three ui buttons">
-                    <a class=" ui  simple dropdown green button">
-                        <p class="services">Test d'effort</p>
-                        <p>Dr Test</p>
-                        <p>Salle 15</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Robert</p>
-                        <p>Salle 13</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown yellow button">
-                        <p class="services">Cardiologie</p>
-                        <p>Dr Martin, Dr Dubois</p>
-                        <p>Salle 10</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-            <td rowspan="3">
-                <div class="three ui buttons">
-                    <a class="ui  simple dropdown blue button">
-                        <p class="services">Echo</p>
-                        <p>Dr Test, Dr Test2</p>
-                        <p>Salle 13</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class=" ui  simple dropdown green button">
-                        <p class="services">Test d'effort</p>
-                        <p>Dr Test</p>
-                        <p>Salle 16</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                    <a class="ui  simple dropdown yellow button">
-                        <p class="services">Cardiologie</p>
-                        <p>Dr Test</p>
-                        <p>Salle 11</p>
-                        <div class="menu">
-                            <div class="item"><i class="edit icon"></i> Modifier</div>
-                            <div class="item"><i class="delete icon"></i> Supprimer</div>
-                            <div class="item"><i class="hide icon"></i> Cacher</div>
-                        </div>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>15h</td>
-        </tr>
-        <tr>
-            <td>16h</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>17h</td>
-            <td>
-                <a class="fluid ui simple dropdown red button">
-                    <p><b>Pédiatrie</b> - Dr Test, Dr Test2 - Salle 5</p>
-                    <div class="menu">
-                        <div class="item"><i class="edit icon"></i> Modifier</div>
-                        <div class="item"><i class="delete icon"></i> Supprimer</div>
-                        <div class="item"><i class="hide icon"></i> Cacher</div>
-                    </div>
-                </a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-
-<div class="ui centered grid">
-    <div class="three column row">
-        <div class="five wide column">
-            <button class="large ui right labeled icon brown button">
-                <i class="add circle icon"></i> Ajouter
-            </button>
-        </div>
-        <div class="six wide column">
-            <div class="ui pagination menu">
-                <a class="icon item">
-                    <i class="left chevron icon"></i>
-                </a>
-                <a class="item">1</a>
-                <a class="item">2</a>
-                <a class="item">3</a>
-                <a class="item">4</a>
-                <a class="icon item">
-                    <i class="right chevron icon"></i>
-                </a>
-            </div>
-        </div>
-        <div class="one wide column">
-            <button class="circular ui labeled icon button">
-                <i class="print icon"></i>
-                Imprimer
-            </button>
-        </div>
-    </div>
-</div>
-<div class="ui divider"></div>
 @endsection

@@ -32,11 +32,16 @@
 })->name('index');*/
 
 //Auth::routes();
-Route::get('/home', 'EdtController@index')->name('edt.index'); // get => /edt
 
+Route::group(['prefix' => 'home'], function() {
+    Route::get('/{year?}/{week?}', 'EdtController@index')->name('edt.index');
+    Route::post('/delete', 'EdtController@delete')->name('edt.delete');
+    Route::post('/create', 'EdtController@create')->name('edt.create');
+});
 //////////////////////////////////////
 /// Set Authentification routes manually
 // Authentication Routes...
+
 Route::get('/', [
     'as' => 'login',
     'uses' => 'Auth\LoginController@showLoginForm'

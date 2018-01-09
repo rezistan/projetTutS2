@@ -25,15 +25,8 @@ class Activity extends Model
 
     public function carbonize()
     {
-        $this->begin = Carbon::createFromFormat('Y-m-d H:i:s', $this->started_at);
-        $this->end = Carbon::createFromFormat('Y-m-d H:i:s', $this->ended_at);
-    }
-
-    /**
-     * jour de l'activité
-     */
-    public function getDay() {
-        return $this->begin->dayOfWeek;
+        $this->begin = Carbon::createFromFormat('H:i:s', $this->started_at);
+        $this->end = Carbon::createFromFormat('H:i:s', $this->ended_at);
     }
 
     /**

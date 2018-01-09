@@ -82,11 +82,11 @@
     <div class="ui centered grid">
         <div class="ui pagination menu">
             <a class="icon item" href="/home/<?=$years['prev']?>/<?=$weeks['prev']?>">
-                <i class="left chevron icon"></i>Semaine précédente
+                <i class="left chevron icon"></i> Semaine précédente
             </a>
             <div class="icon item">Planning de l'année <?=$years['curr']?>, semaine <?=$weeks['curr']?></div>
             <a class="icon item" href="/home/<?=$years['next']?>/<?=$weeks['next']?>">
-                Semaine suivante<i class="right chevron icon"></i>
+                Semaine suivante <i class="right chevron icon"></i>
             </a>
         </div>
     </div>

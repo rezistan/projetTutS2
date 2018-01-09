@@ -4,15 +4,64 @@ Etudiants: Julien REYNAUD, Thomas BOFFY, Marine MOLLIER, Sichialun KOUSONSAVATH 
 
 L’objectif de ce projet tuteuré est de créer une application Web permettant de gérer les plannings d’activités dans un service médical.
 
-Ce planning présentera à termes les fonctionnalités suivantes:
+Nous voudrions inclure les fonctionnalités suivantes:
 
 - Authentification
 - Possibilité pour le/la cadre de santé de gérer les plannings des médecins
 - Affichage des activités (une salle, une tâche (service concerné), un médecin, une date et un horaire) sur un planning.
 - Affichage d’un planning personnel, propre à chaque utilisateurs.
 - Affichage d’un planning pour chaque service et chaque médecin.
+- Quelques fonctionnalités annexes si on a le temps.
 
 Le développement de ces fonctionnalités sera détaillé dans les commits.
+
+## Etat actuel de l'IHM
+
+### Authentification
+
+![Authentification](https://i.imgur.com/InxLjIu.png)
+
+Les utilisateurs peuvent s'authentifier à l'aide de la barre en haut. L'inscription sera désactivée à l'issue du projet.
+Elle permet également de se déconnecter.
+
+### Affichage des plannings
+
+#### Personnel
+
+Lorsque l'utilisateur s'est connecté, il arrive sur son planning personnel, par défaut à la semaine courante.
+Il peut naviguer entre les semaines, l'affichage avec les jours est fonctionnel.
+Les horaires se mettent bien aux bons créneaux, et lorsqu'ils durent quelques heures,
+l'encadré gris prend la place qu'il faut.
+
+![Planning](https://i.imgur.com/InxLjIu.png)
+
+Axes d'amélioration :
+
+- Le planning n'est pas encore adapté aux mobiles (et est un peu moche).
+- Les cases de couleur ne prennent pas la taille qui correspondent à l'encadré gris.
+
+#### Par service, par médecin
+
+Non géré pour le moment.
+
+### Gérance des plannings
+
+#### Ajouter, Modifier, Supprimer
+
+A l'heure actuelle, la suppression est fonctionnelle.
+Néanmoins, pour la modification et l'ajout de tâches, il reste encore du travail.
+
+![Ajouter](https://i.imgur.com/ahbq3nC.png) 
+![Modifier](https://i.imgur.com/ahbq3nC.png)
+
+##### Glisser/Déposer et Impression
+
+Il s'agissait de fonctionnalités annexes proposées par l'équipe encadrante du projet.
+Ces fonctionnalités ne sont pas gérées pour le moment (peu de chance qu'on les gère d'ici la fin du projet).
+
+#### Gérance des droits
+
+Non géré pour le moment.
 
 ## Comment le faire tourner ?
 
@@ -61,7 +110,15 @@ Par la suite, nous créerons les tables utilisées par le projet.
 Leur structure est préparée dans les migrations (/database/migrations). Ce seront elles qui permettront de créer les tables dont nous avons besoin.  
 Ensuite, pour les remplir, nous utiliserons les graines, ou seeds (/database/seeds).
 
-Il suffit de lancer les deux commandes suivantes:
+<span style="color:red">***IMPORTANT : SI VOUS AVEZ DEJA SETUP LE PROJET, IL FAUT TAPER LA COMMANDE SUIVANTE :***</span>
+
+```
+php artisan migrate:refresh --seed
+```
+
+Cette commande met à jour la base de données. Pour en savoir plus, une explication détaillée se trouve dans la dernière migration.
+
+***Dans le cas contraire (et uniquement), il suffit de lancer les deux commandes suivantes:***
 
 ```
 php artisan migrate

@@ -59,9 +59,9 @@ Néanmoins, pour la modification et l'ajout de tâches, il reste encore du trava
 Il s'agissait de fonctionnalités annexes proposées par l'équipe encadrante du projet.
 Ces fonctionnalités ne sont pas gérées pour le moment (peu de chance qu'on les gère d'ici la fin du projet).
 
-#### Gérance des droits
+#### Gérance des droits et Congés
 
-Non géré pour le moment.
+Non gérés pour le moment.
 
 ## Comment le faire tourner ?
 
@@ -110,7 +110,7 @@ Par la suite, nous créerons les tables utilisées par le projet.
 Leur structure est préparée dans les migrations (/database/migrations). Ce seront elles qui permettront de créer les tables dont nous avons besoin.  
 Ensuite, pour les remplir, nous utiliserons les graines, ou seeds (/database/seeds).
 
-<span style="color:red">***IMPORTANT : SI VOUS AVEZ DEJA SETUP LE PROJET, IL FAUT TAPER LA COMMANDE SUIVANTE :***</span>
+***IMPORTANT : SI VOUS AVEZ DEJA SETUP LE PROJET, IL FAUT TAPER LA COMMANDE SUIVANTE :***
 
 ```
 php artisan migrate:refresh --seed

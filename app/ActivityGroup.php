@@ -15,4 +15,11 @@ class ActivityGroup extends Model
     {
         return $this->belongsTo('App\Activity');
     }
+
+    protected $fillable = [
+       'user_id', 'activity_id',
+    ];
+    protected $table = 'activity_groups';
+    
+    public $timestamps = false;
 }

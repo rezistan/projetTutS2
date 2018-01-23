@@ -37,6 +37,7 @@ Route::group(['prefix' => 'home'], function() {
     Route::get('/{year?}/{week?}', 'EdtController@index')->name('edt.index');
     Route::post('/delete', 'EdtController@delete')->name('edt.delete');
     Route::post('/create', 'EdtController@create')->name('edt.create');
+    Route::post('/update/{id}', 'EdtController@update')->name('edt.update');
 });
 //////////////////////////////////////
 /// Set Authentification routes manually

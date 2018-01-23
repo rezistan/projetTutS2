@@ -25,8 +25,8 @@ class Activity extends Model
 
     public function carbonize()
     {
-        $this->begin = Carbon::createFromFormat('H:i:s', $this->started_at);
-        $this->end = Carbon::createFromFormat('H:i:s', $this->ended_at);
+        $this->begin = Carbon::createFromFormat('H:i', $this->started_at);
+        $this->end = Carbon::createFromFormat('H:i', $this->ended_at);
     }
 
     /**
@@ -42,4 +42,11 @@ class Activity extends Model
     public function getEndHour() {
         return $this->end->hour;
     }
+
+    protected $fillable = [
+       'task_id', 'room_id', 'day', 'week', 'year','started_at','ended_at',
+    ];
+    protected $table = 'activities';
+    
+    public $timestamps = false;
 }

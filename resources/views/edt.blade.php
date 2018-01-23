@@ -24,49 +24,65 @@
             <div class="menu">
                 <h3>Ajouter un créneau</h3>
                 <form class="ui form" method="post" action="{{route('edt.create')}}">
+                    <input type="hidden" name="_token" value="<?php echo csrf_token() ?>">
+                    {!! csrf_field() !!}
                     <div class="field">
-                        <label>Tâche</label>
-                        <div class="ui selection dropdown">
-                            <input type="hidden" name="task">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Tâche souhaitée</div>
-                            <div class="menu">
-                                <div class="item" data-value="1">tâche1</div>
-                                <div class="item" data-value="2">tâche2</div>
-                            </div>
-                        </div>
+                        <label>Tâche</label>             
+                        <select name="tache" class="ui simple selection dropdown item">
+                            <option value="">Tâche souhaitée</option>
+                                <?php
+                                $editeurs1 = DB::table('tasks')->select('id','task')->get();
+                                foreach ($editeurs1 as $editeur) { 
+                                    echo '<option value="'.$editeur->id.'">'; 
+                                    echo $editeur->task; 
+                                    echo '</option>';
+                                }        
+                                ?> 
+                        </select>
                     </div>
                     <div class="field">
                         <label>Salle</label>
-                        <div class="ui selection dropdown">
-                            <input type="hidden" name="room">
-                            <i class="dropdown icon"></i>
-                            <div class="default text">Salle souhaitée</div>
-                            <div class="menu">
-                                <div class="item" data-value="1">salleDispo1</div>
-                                <div class="item" data-value="2">salleDispo2</div>
-                            </div>
-                        </div>
+                        <select name="salle" class="ui simple selection scrolling dropdown item">
+                            <option value="">Salle souhaitée</option>
+                                <?php
+                                $editeurs2 = DB::table('rooms')->select('id','room')->get();
+                                foreach ($editeurs2 as $editeur) { 
+                                    echo '<option value="'.$editeur->id.'">'; 
+                                    echo $editeur->room;     
+                                    echo '</option>';
+                                }        
+                                ?> 
+                        </select>
                     </div>
                     <div class="field">
                         <label>Médecins</label>
-                        <select multiple="" class="ui dropdown">
+                        <select name="medecin[]" multiple="" class="ui simple selection dropdown item">
                             <option value="">Sélectionnez un ou plusieurs médecins</option>
-                            <option value="AF">Vincent</option>
-                            <option value="AF">Philippe</option>
+                            <?php
+                                $editeurs3 = DB::table('users')->select('id','firstname','lastname')->whereIn('job_id', [1])->get();
+                                foreach ($editeurs3 as $editeur) {
+                                    echo '<option value="'.$editeur->id.'">';
+                                    echo $editeur->firstname;
+                                    echo " ";
+                                    echo $editeur->lastname;
+                                    echo '</option>';
+                                }        
+                            ?>
                         </select>
                     </div>
                     <div class="field">
                         <label>Jour</label>
-                        <input type="date" name="day">
+                        <input type="number" placeholder="D" min="1" max="5" name="jour" style="width:60px">
+                        <input type="number" placeholder="W" min="1" max="52" name="semaine" style="width:65px">
+                        <input type="number" placeholder="Y" min="2017" max="" name="annee" style="width:80px">
                     </div>
                     <div class="field">
                         <label>Heure de début</label>
-                        <input type="time" name="begin">
+                        <input type="time" name="begin" min="08:00" max="16:00" style="width:120px">
                     </div>
                     <div class="field">
                         <label>Heure de fin</label>
-                        <input type="time" name="end">
+                        <input type="time" name="end" min="10:00" max="18:00" style="width:120px">
                     </div>
                     <button class="ui button" type="submit">Ajouter</button>
                 </form>

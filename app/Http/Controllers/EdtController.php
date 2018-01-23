@@ -7,6 +7,7 @@ use App\Activity;
 use Carbon\Carbon;
 use Illuminate\Support\MessageBag;
 use App\ActivityGroup;
+use DB;
 
 /**
  * Class EdtController
@@ -135,55 +136,71 @@ class EdtController extends Controller
                     if ($activity->day === $col && $activity->getBeginHour() === $horaire) {
                         $diff = $activity->getEndHour() - $horaire;
                         $row += $diff - 1;
+                          $editeurs1 = DB::table('tasks')->select('id','task')->get();
+                          $editeurs2 = DB::table('rooms')->select('id','room')->get();
+                          $editeurs3 = DB::table('users')->select('id','firstname','lastname')->whereIn('job_id', [1])->get();  
                         $planning .= '<div class="day h-' . $diff . '"><a class="fluid ui simple dropdown ' . $activity->task->color . ' button">
                                           <div class="menu">
                                                 <div class="simple dropdown item"><i class="edit icon"></i>Modifier
                                                       <div class="menu">
                                                           <h3>Modifier ce créneau</h3>
-                                                          <form class="ui form" method="post" action="">
+                                                          <form class="ui form" method="post" action="' . route('edt.update', $activity->id) . '">
+                                                              <input type="hidden" name="_token" value="' . csrf_token() . '">
                                                               <div class="field">
-                                                                  <label>Tâche</label>
-                                                                  <div class="ui selection dropdown">
-                                                                      <input type="hidden" name="task">
-                                                                      <i class="dropdown icon"></i>
-                                                                      <div class="default text">Tâche souhaitée</div>
-                                                                      <div class="menu">
-                                                                          <div class="item" data-value="1">tâche1</div>
-                                                                          <div class="item" data-value="2">tâche2</div>
-                                                                      </div>
-                                                                  </div>
+                                                                  <label>Tâche</label>             
+                                                                  <select name="tache2" class="ui simple selection dropdown item">
+                                                                      <option value="">Tâche souhaitée</option>';
+                                                                          
+                                                                           foreach ($editeurs1 as $editeur10) {  
+                                                                            $planning .= '
+                                                                              <option value="' . $editeur10->id . '"> 
+                                                                              <p>' . $editeur10->task . '</p> 
+                                                                              </option>';
+                                                                          }
+                                                                          $planning .= '
+                                                                  </select>
                                                               </div>
                                                               <div class="field">
                                                                   <label>Salle</label>
-                                                                  <div class="ui selection dropdown">
-                                                                      <input type="hidden" name="room">
-                                                                      <i class="dropdown icon"></i>
-                                                                      <div class="default text">Salle souhaitée</div>
-                                                                      <div class="menu">
-                                                                          <div class="item" data-value="1">salleDispo1</div>
-                                                                          <div class="item" data-value="2">salleDispo2</div>
-                                                                      </div>
-                                                                  </div>
+                                                                  <select name="salle2" class="ui simple selection scrolling dropdown item">
+                                                                      <option value="">Salle souhaitée</option>';
+                                                                          foreach ($editeurs2 as $editeur20) {
+                                                                          $planning .= ' 
+                                                                              <option value="' . $editeur20->id . '"> 
+                                                                              <p>' . $editeur20->room . '</p>     
+                                                                              </option>';
+                                                                          }        
+                                                                          $planning .= '
+                                                                  </select>
                                                               </div>
                                                               <div class="field">
                                                                   <label>Médecins</label>
-                                                                  <select multiple="" class="ui dropdown">
-                                                                      <option value="">Sélectionnez un ou plusieurs médecins</option>
-                                                                      <option value="AF">Vincent</option>
-                                                                      <option value="AF">Philippe</option>
+                                                                  <select name="medecin2[]" multiple="" class="ui simple selection disabled dropdown item">
+                                                                      <option value="">Sélectionnez un ou plusieurs médecins</option>';
+                                                                          foreach ($editeurs3 as $editeur30) {
+                                                                          $planning .= '   
+                                                                              <option value="' . $editeur30->id . '"> 
+                                                                              <p>' . $editeur30->firstname . '</p>
+                                                                              <p>' . " " . '</p>
+                                                                              <p>' . $editeur30->lastname . '</p>
+                                                                              </option>';
+                                                                          }       
+                                                                          $planning .= ' 
                                                                   </select>
                                                               </div>
                                                               <div class="field">
                                                                   <label>Jour</label>
-                                                                  <input type="date" name="day">
+                                                                  <input type="number" placeholder="D" min="1" max="5" name="jour2" style="width:60px">
+                                                                  <input type="number" placeholder="W" min="1" max="52" name="semaine2" style="width:65px">
+                                                                  <input type="number" placeholder="Y" min="2017" max="" name="annee2" style="width:80px">
                                                               </div>
                                                               <div class="field">
                                                                   <label>Heure de début</label>
-                                                                  <input type="time" name="begin">
+                                                                  <input type="time" name="begin2" min="08:00" max="16:00" style="width:120px">
                                                               </div>
                                                               <div class="field">
                                                                   <label>Heure de fin</label>
-                                                                  <input type="time" name="end">
+                                                                  <input type="time" name="end2" min="10:00" max="18:00" style="width:120px">
                                                               </div>
                                                               <button class="ui button" type="submit">Modifier</button>
                                                           </form>
@@ -212,6 +229,9 @@ class EdtController extends Controller
 
         return $planning;
     }
+    
+
+
 
     /**
      * @param Request $request
@@ -220,16 +240,52 @@ class EdtController extends Controller
      * https://laravel.com/docs/5.4/responses
      */
     public function create(Request $request)
-    {
+    { 
+      $activite = Activity::create([
+            'task_id' => $request->tache,
+            'room_id' => $request->salle,
+            'day' => $request->jour,
+            'week' => $request->semaine,
+            'year' => $request->annee,
+            'started_at' => $request->begin, 
+            'ended_at' => $request->end, 
+        ]);
+
+      $insertedId = $activite->id;
+
+      $Col1_Array = $_POST['medecin'];
+      print_r($Col1_Array);
+      foreach($Col1_Array as $selectValue){
+        ActivityGroup::create([
+            'user_id' => $selectValue, //$request->medecin,
+            'activity_id' => $insertedId,
+        ]);
+      }  
+
+    $message = new MessageBag();
+    $message->add('success', "L'activité a été créé.");
+    return back()->with('message', $message);
 
     }
 
     /**
      * @param Request $request
      */
-    public function update(Request $request)
+    public function update(Request $request, $activity)
     {
+      $activit = Activity::find($activity)->update([
+            'task_id' => $request->tache2,
+            'room_id' => $request->salle2,
+            'day' => $request->jour2,
+            'week' => $request->semaine2,
+            'year' => $request->annee2,
+            'started_at' => $request->begin2, 
+            'ended_at' => $request->end2,  
+        ]);
 
+    $message = new MessageBag();
+    $message->add('success', "L'activité a bien été modifiée.");
+    return back()->with('message', $message);
     }
 
     /**

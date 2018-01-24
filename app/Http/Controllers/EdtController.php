@@ -229,8 +229,6 @@ class EdtController extends Controller
 
         return $planning;
     }
-    
-
 
 
     /**
@@ -238,54 +236,56 @@ class EdtController extends Controller
      *
      * https://laravel.com/docs/5.4/requests
      * https://laravel.com/docs/5.4/responses
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create(Request $request)
-    { 
-      $activite = Activity::create([
+    {
+        $activite = Activity::create([
             'task_id' => $request->tache,
             'room_id' => $request->salle,
             'day' => $request->jour,
             'week' => $request->semaine,
             'year' => $request->annee,
-            'started_at' => $request->begin, 
-            'ended_at' => $request->end, 
+            'started_at' => $request->begin,
+            'ended_at' => $request->end,
         ]);
 
-      $insertedId = $activite->id;
+        $insertedId = $activite->id;
 
-      $Col1_Array = $_POST['medecin'];
-      print_r($Col1_Array);
-      foreach($Col1_Array as $selectValue){
-        ActivityGroup::create([
-            'user_id' => $selectValue, //$request->medecin,
-            'activity_id' => $insertedId,
-        ]);
-      }  
+        $Col1_Array = $_POST['medecin'];
+        print_r($Col1_Array);
+        foreach($Col1_Array as $selectValue){
+            ActivityGroup::create([
+                'user_id' => $selectValue, //$request->medecin,
+                'activity_id' => $insertedId,
+            ]);
+        }
 
-    $message = new MessageBag();
-    $message->add('success', "L'activité a été créé.");
-    return back()->with('message', $message);
+        $message = new MessageBag();
+        $message->add('success', "L'activité a été créé.");
+        return back()->with('message', $message);
 
     }
 
     /**
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $activity)
     {
-      $activit = Activity::find($activity)->update([
+        Activity::find($activity)->update([
             'task_id' => $request->tache2,
             'room_id' => $request->salle2,
             'day' => $request->jour2,
             'week' => $request->semaine2,
             'year' => $request->annee2,
-            'started_at' => $request->begin2, 
-            'ended_at' => $request->end2,  
+            'started_at' => $request->begin2,
+            'ended_at' => $request->end2,
         ]);
 
-    $message = new MessageBag();
-    $message->add('success', "L'activité a bien été modifiée.");
-    return back()->with('message', $message);
+        $message = new MessageBag();
+        $message->add('success', "L'activité a bien été modifiée.");
+        return back()->with('message', $message);
     }
 
     /**

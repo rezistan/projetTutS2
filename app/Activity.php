@@ -25,8 +25,8 @@ class Activity extends Model
 
     public function carbonize()
     {
-        $this->begin = Carbon::createFromFormat('H:i', $this->started_at);
-        $this->end = Carbon::createFromFormat('H:i', $this->ended_at);
+        $this->begin = Carbon::createFromFormat('H:i:s', $this->started_at);
+        $this->end = Carbon::createFromFormat('H:i:s', $this->ended_at);
     }
 
     /**
